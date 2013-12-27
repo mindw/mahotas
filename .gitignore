@@ -4,3 +4,6 @@ mahotas.egg-info/
 *.pyc
 *.so
 *.pyd
+
+.idea/
+*.pdb
