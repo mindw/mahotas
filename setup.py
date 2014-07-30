@@ -33,6 +33,7 @@ On linux, the package is often called python-setuptools''')
 import os
 import numpy
 
+from distutils.command.build_ext import build_ext
 
 exec(compile(open('mahotas/mahotas_version.py').read(),
              'mahotas/mahotas_version.py', 'exec'))
@@ -87,6 +88,15 @@ install_requires = open('requirements.txt').read()
 
 tests_require = open('tests-requirements.txt').read()
 
+copt =  {'msvc': ['/EHsc'] }
+
+class build_ext_subclass( build_ext ):
+    def build_extensions(self):
+        c = self.compiler.compiler_type
+        if copt.has_key(c):
+           for e in self.extensions:
+               e.extra_compile_args = copt[ c ]
+        build_ext.build_extensions(self)
 
 classifiers = [
 'Development Status :: 5 - Production/Stable',
@@ -116,6 +126,7 @@ setuptools.setup(name = 'mahotas',
       package_data = package_data,
       test_suite = 'nose.collector',
       install_requires = install_requires,
-      tests_require = tests_require
+      tests_require = tests_require,
+      cmdclass = {'build_ext': build_ext_subclass}
       )
 
