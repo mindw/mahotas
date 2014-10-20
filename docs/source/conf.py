@@ -162,7 +162,7 @@ html_theme = 'default'
 #html_file_suffix = ''
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'mahotasdoc'
+htmlhelp_basename = 'mahotas'
 
 
 # Options for plot output
